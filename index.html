@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>SABÉRA – Fashion &amp; Accessories</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Jost:wght@400;500;600;700&family=Cormorant+Garamond:wght@600;700&family=Noto+Nastaliq+Urdu:wght@400;700&display=swap">
+<link rel="stylesheet" href="style.css">
+</head><body>
+<header><div class="wrap"><div class="bar glass">
+ <div class="logo" onclick="go('home')"><img src="img/logo.png" alt="SABÉRA logo"><div><strong>SABÉRA</strong><small id="tl"></small></div></div>
+ <nav class="nav" id="nav"></nav>
+ <button class="lang" id="lang" onclick="tog()">اردو</button><button class="lang burger" aria-label="menu" onclick="document.getElementById('nav').classList.toggle('open')">☰</button>
+ <a class="soc fbc" id="fb" target="_blank" rel="noopener">f</a><a class="soc ttc" id="tt" target="_blank" rel="noopener">♪</a>
+</div></div></header>
+
+<main class="wrap">
+<div id="home">
+ <section class="hero"><div>
+  <span class="badge" id="pc"></span>
+  <h1 class="big" id="h1"></h1><p id="sub" style="font-size:1.15rem"></p>
+  <a class="btn" id="cta" onclick="go('dresses')"></a></div>
+  <!-- Video: VIDEO mein mp4 ka path, HERO_IMG mein still image ka path dein (GitHub repo ke andar) -->
+  <div class="media" id="media">🌸<button class="watch glass" id="watch" onclick="playV()"><span>▶</span><b id="wt"></b></button></div>
+ </section>
+ <div class="tiles5" id="t5"></div>
+ <section id="how"><h2 id="th"></h2><div class="how" id="hw"></div></section>
+ <section id="offers"><h2 id="to"></h2><div class="ofs" id="ofs"></div><h3 class="sub" id="ts"></h3><div class="grid" id="sale"></div></section>
+ <section id="wsec"><h2 id="tw"></h2><div class="grid" id="wgrid"></div><div class="more"><button class="btn" onclick="go('watches')" id="wm"></button></div></section>
+ <section class="row3b">
+  <div class="card glass"><h2 id="tb"></h2><div class="brands" id="brs"></div></div>
+  <div class="card glass" id="visit"><h2 id="tv"></h2>
+   <div class="mapbox"><a class="mapfall" id="mapA" target="_blank" rel="noopener" aria-label="Map"></a><iframe title="map" loading="lazy" allowfullscreen src="https://www.google.com/maps?q=34.761675090975885,72.32121804586971&z=16&output=embed"></iframe></div>
+   <div class="mapact"><div><b>📍 SABÉRA</b><br><small id="addr"></small></div><span><a class="btn" id="open" target="_blank" rel="noopener"></a> <a class="btn" id="dir" target="_blank" rel="noopener"></a></span></div></div>
+ </section>
+ <section id="reviews"><h2 id="tr"></h2><div id="rsum" class="rsum"></div>
+  <div class="rgrid"><div class="rform glass"><b id="rt"></b><div class="stars" id="stars"></div><input id="rn" maxlength="40"><textarea id="rm" rows="3" maxlength="300"></textarea><button class="btn" id="rsend"></button></div><div id="rlist"></div></div></section>
+ <section class="trust glass" id="trust"></section>
+</div>
+
+<div id="shopv" class="hide">
+ <div class="banner glass"><h1 id="bt"></h1><p id="bs" style="margin:.2rem 0 0"></p></div>
+ <div class="shop">
+  <aside class="filters glass" id="fl"></aside>
+  <div><input id="q" class="q" type="search" oninput="q=this.value.toLowerCase();draw()"><div class="sortbar"><button class="btn fbtn" id="fbtn" onclick="document.getElementById('fl').classList.toggle('open')"></button><span id="cnt"></span><select id="sort" onchange="draw()"><option value="pop">★</option><option value="lo">PKR ↑</option><option value="hi">PKR ↓</option></select><span class="vt"><button onclick="gv(0)" aria-label="grid">▦</button><button onclick="gv(1)" aria-label="list">☰</button></span></div>
+   <div class="grid" id="grid"></div><div class="more"><button class="btn" id="more" onclick="PAGE+=6;draw()"></button></div></div>
+  <aside class="panel glass" id="panel"></aside>
+ </div>
+</div>
+</main>
+<footer>© SABÉRA — <span id="ft"></span></footer>
+<a id="wab" aria-label="WhatsApp" target="_blank" rel="noopener"><svg viewBox="0 0 32 32"><path d="M16 3C9 3 3.4 8.6 3.4 15.5c0 2.3.6 4.4 1.7 6.3L3 29l7.4-2c1.8 1 3.8 1.5 5.6 1.5 7 0 12.6-5.6 12.6-12.5S23 3 16 3zm6.300 17.600c-.3.800-1.600 1.500-2.200 1.600-.6.100-1.300.1-2-.1-.5-.2-1.100-.4-1.900-.8-3.300-1.400-5.400-4.700-5.600-4.900-.2-.2-1.300-1.700-1.300-3.200s.8-2.300 1.100-2.600c.3-.3.600-.4.800-.4h.6c.2 0 .5-.1.700.5.3.600.9 2.200 1 2.400.1.200.1.400 0 .6l-.4.600-.6.700c-.2.200-.4.400-.2.800.2.400 1 1.600 2.100 2.600 1.400 1.200 2.600 1.600 3 1.800.4.200.6.200.8-.1.200-.3 1-1.100 1.300-1.500.3-.4.500-.3.900-.2.400.2 2.300 1.100 2.700 1.300.4.200.6.300.7.500.1.200.1.900-.2 1.700z"/></svg></a>
+<nav class="tabbar glass" id="tabs"></nav><div id="dlg" class="hide" onclick="if(event.target===this)closeD()"></div><div id="toast"></div>
+<script>
+// ===== SETTINGS: apni details yahan badlein =====
+let PHONE="923499478229", FB="https://facebook.com/", TT="https://tiktok.com/";
+const DIRLINK="https://www.google.com/maps/dir/?api=1&destination=34.761675090975885,72.32121804586971";
+const MAPLINK="https://www.google.com/maps?q=34.761675090975885,72.32121804586971";
+let WAL=[["EasyPaisa","03499478229"],["JazzCash","03499478229"],["UPaisa","03499478229"]]; // wallet numbers
+let ADDRESS="SABÉRA Collection Store";   // yahan dukan ka pura address bhi likh sakte hain
+let VIDEO="https://drive.google.com/uc?export=download&id=1ZAdwy8kfA46DNh9vh0UZtsaGGj1wUqF5"; // hero background video; behtar: mp4 GitHub mein rakh kar "video/hero.mp4" likhein
+const DRIVE_ID="1ZAdwy8kfA46DNh9vh0UZtsaGGj1wUqF5"; // Drive video: Watch button par popup mein chalti hai      // mp4 ka path, e.g. "video/hero.mp4"
+const HERO_IMG="img/hero.jpg", HERO_MOBILE="img/hero-mobile.jpg"; // desktop aur mobile ki hero images
+const BRANDS=[["👑","SABÉRA"],["💎","LUXE"],["🎀","ChicBelle"],["🪷","BellaDonna"]];
+const COLORS={Pink:"#ff4fa3",White:"#ffffff",Purple:"#9b7ede",Blue:"#5bb5f0",Gold:"#e8c26a"};
+const CATS=[{id:"watches",e:"⌚",en:"Watches",ur:"گھڑیاں"},{id:"dresses",e:"👗",en:"Dresses",ur:"ڈریسز"},{id:"stoles",e:"🧣",en:"Stallers",ur:"اسٹالرز"},{id:"shoes",e:"👠",en:"Shoes",ur:"جوتے"},{id:"waistcoats",e:"🧥",en:"Waistcoats",ur:"ویسٹ کوٹ"}];
+// [id, category, English, Urdu, price, old price, brand, badge, rating, reviews, colours, sizes]
+const R=[
+["D001","dresses","Embroidered Pink Dress","کڑھائی والا گلابی ڈریس",3200,4000,"SABÉRA","-20%",4.8,120,"Pink,Purple,Blue,Gold","S,M,L,XL"],
+["D002","dresses","Stylish Lavender Dress","اسٹائلش لیوینڈر ڈریس",4500,0,"LUXE","New",4.9,85,"Purple,White","S,M,L,XL"],
+["D003","dresses","Party Wear Dress","پارٹی ویئر ڈریس",3800,4500,"ChicBelle","-15%",4.7,76,"Pink,Gold","M,L,XL"],
+["D004","dresses","Floral Dress","پھولوں والا ڈریس",2800,0,"BellaDonna","Hot",4.7,92,"Pink,White","S,M,L"],
+["D005","dresses","Elegant Maxi Dress","ایلیگینٹ میکسی ڈریس",3750,5000,"SABÉRA","-25%",4.8,110,"Pink,Blue","S,M,L,XL,XXL"],
+["D006","dresses","Bow Style Dress","بو اسٹائل ڈریس",4200,0,"LUXE","New",4.9,73,"Pink,White","S,M,L"],
+["W001","watches","Rose-gold Watch","روز گولڈ گھڑی",7900,0,"LUXE","New",4.8,64,"Gold,Pink","M"],
+["W002","watches","Bracelet Watch","بریسلیٹ گھڑی",5600,6900,"SABÉRA","-20%",4.6,48,"White,Gold","M"],
+["W003","watches","Pearl Dial Watch","پرل ڈائل گھڑی",6500,8000,"LUXE","",4.7,39,"White,Gold","M"],
+["W004","watches","Classic Strap Watch","کلاسک اسٹریپ گھڑی",4800,0,"ChicBelle","New",4.5,22,"Purple,Pink","M"],
+["T001","stoles","Soft Pashmina Stole","نرم پشمینہ اسٹول",3900,0,"BellaDonna","Hot",4.8,58,"Pink,White,Blue","L"],
+["T002","stoles","Lace-edge Stole","لیس والا اسٹول",2800,0,"ChicBelle","",4.5,31,"White,Pink","L"],
+["S001","shoes","Pearl Heels","پرل ہیلز",4500,0,"LUXE","New",4.7,66,"White,Pink","M,L"],
+["S002","shoes","Pink Pumps","گلابی پمپس",3800,4400,"SABÉRA","-15%",4.6,52,"Pink","M,L"],
+["V001","waistcoats","Festive Waistcoat","تہواری ویسٹ کوٹ",4900,0,"ChicBelle","Hot",4.7,40,"Purple,Blue","S,M,L"],
+["V002","waistcoats","Embroidered Waistcoat","کڑھائی ویسٹ کوٹ",5900,0,"BellaDonna","New",4.8,35,"Pink,White","S,M,L"]];
+let P=R.map(a=>({id:a[0],c:a[1],en:a[2],ur:a[3],pr:a[4],was:a[5],br:a[6],bd:a[7],rt:a[8],rn:a[9],col:a[10].split(","),sz:a[11].split(","),img:""}));
+const U={en:{th:"How to order",open:"📍 Open in Maps",dir:"🧭 Get Directions",send:"Submit review",nameph:"Your name",cmph:"Write your comment…",norv:"No reviews yet. Be the first!",pickst:"Please tap the stars",fill:"Please enter your name and comment",thanks:"Thank you for your review!",to:"🔥 Offers & Deals",ts:"On sale now",tw:"⌚ Watches Collection",wm:"See all watches →",tl:"Collection Store",pc:"Premium Collection",h1:"Elegance in Every Detail",sub:"Discover Your Perfect Style",cta:"Shop Now →",wt:"Watch Our Fashion Video",tb:"Our Brands",tv:"Visit Our Store",rt:"Rate Us Here",tr:"Customer Reviews",ord:"Order on WhatsApp",more:"Load more",fp:"Filter by Price",fc:"Filter by Color",fs:"Filter by Size",fb:"Filter by Brand",all:"All",sh:"Showing",of:"of",qty:"Quantity",col:"Color",sz:"Size",home:"Home",soon:"Online payment is coming soon. Please order on WhatsApp.",novid:"Add your video link in SETTINGS (VIDEO).",ft:"Shop Smart, Look Elegant",sub2:"Step into Style & Grace",tr1:["Free Delivery","All Over Pakistan"],tr2:["Easy Returns","7 Days Policy"],tr3:["Secure Shopping","Your Trust, Our Priority"],pay:["Pay with EasyPaisa","Pay with JazzCash","Pay with UPaisa"],mn:["Secure Payment","Instant Receipt","24/7 Support"]},
+ur:{th:"آرڈر کیسے کریں",open:"📍 نقشہ کھولیں",dir:"🧭 راستہ دیکھیں",send:"ریویو بھیجیں",nameph:"آپ کا نام",cmph:"اپنی رائے لکھیں…",norv:"ابھی کوئی ریویو نہیں۔ پہلے آپ لکھیں!",pickst:"براہ کرم ستارے منتخب کریں",fill:"براہ کرم نام اور رائے لکھیں",thanks:"آپ کے ریویو کا شکریہ!",to:"🔥 آفرز اور ڈیلز",ts:"ابھی سیل پر",tw:"⌚ گھڑیوں کا کلیکشن",wm:"تمام گھڑیاں دیکھیں ←",tl:"کلیکشن اسٹور",pc:"پریمیم کلیکشن",h1:"ہر انداز میں نفاست",sub:"اپنا بہترین انداز دریافت کریں",cta:"ابھی خریدیں ←",wt:"ہماری فیشن ویڈیو دیکھیں",tb:"ہمارے برانڈز",tv:"ہماری دکان",rt:"ہمیں یہاں ریٹ کریں",tr:"گاہکوں کی رائے",ord:"واٹس ایپ پر آرڈر",more:"مزید دکھائیں",fp:"قیمت کے مطابق",fc:"رنگ کے مطابق",fs:"سائز کے مطابق",fb:"برانڈ کے مطابق",all:"تمام",sh:"دکھا رہے ہیں",of:"از",qty:"تعداد",col:"رنگ",sz:"سائز",home:"ہوم",soon:"آن لائن ادائیگی جلد آ رہی ہے۔ براہ کرم واٹس ایپ پر آرڈر کریں۔",novid:"SETTINGS میں اپنی ویڈیو کا لنک (VIDEO) ڈالیں۔",ft:"سمجھداری سے خریدیں، خوبصورت لگیں",sub2:"انداز اور وقار کی طرف قدم بڑھائیں",tr1:["مفت ڈیلیوری","پورے پاکستان میں"],tr2:["آسان واپسی","7 دن کی پالیسی"],tr3:["محفوظ خریداری","آپ کا اعتماد، ہماری ترجیح"],pay:["ایزی پیسہ سے ادائیگی","جاز کیش سے ادائیگی","یو پیسہ سے ادائیگی"],mn:["محفوظ ادائیگی","فوری رسید","24/7 سپورٹ"]}};
+let q="",lang="en",view="home",PAGE=6,sel=null,fil={price:15000,col:null,sz:null,br:[]},ri=0;
+const $=s=>document.querySelector(s),t=o=>o[lang],T=k=>U[lang][k],cn=id=>CATS.find(c=>c.id==id);
+const wa=m=>"https://wa.me/"+PHONE+"?text="+encodeURIComponent(m);
+function toast(m){const e=$("#toast");e.textContent=m;e.classList.add("on");setTimeout(()=>e.classList.remove("on"),2600)}
+function tog(){lang=lang=="en"?"ur":"en";render()}
+function pm(i){const p=sel,w=WAL[i],en=lang=="en",tot=(p.pr*p.q).toLocaleString();
+ const m="Hello, I paid PKR "+tot+" via "+w[0]+" for "+p.en+" (ID "+p.id+", Color "+p.c1+", Size "+p.s1+", Qty "+p.q+"). Screenshot attached.";
+ $("#dlg").innerHTML=`<div class="box glass"><button class="x2" onclick="closeD()" aria-label="close">×</button><h3>${ico(["ep","jc","up"][i])} ${w[0]}</h3><p>${en?"Send":"رقم بھیجیں"} <b>PKR ${tot}</b> ${en?"to this number:":"اس نمبر پر:"}</p><div class="num">${w[1]}</div><button class="btn" onclick="navigator.clipboard&&navigator.clipboard.writeText('${w[1]}');toast('${en?"Number copied":"نمبر کاپی ہو گیا"}')">${en?"Copy number":"نمبر کاپی کریں"}</button> <a class="btn" target="_blank" rel="noopener" href="${wa(m)}">${ico("wa")} ${en?"Send screenshot on WhatsApp":"واٹس ایپ پر اسکرین شاٹ بھیجیں"}</a></div>`;$("#dlg").classList.remove("hide")}
+function gv(l){$("#grid").classList.toggle("lst",!!l)}
+function visit(){go("home");setTimeout(()=>$("#visit").scrollIntoView({behavior:"smooth"}),60)}
+function go(v){q="";if($("#q"))$("#q").value="";$("#nav").classList.remove("open");$("#fl").classList.remove("open");view=v;PAGE=6;sel=null;fil={price:15000,col:null,sz:null,br:[]};render();scrollTo({top:0})}
+function mountVideo(){const m=$("#media");m.querySelectorAll("video,iframe").forEach(e=>e.remove());if(!VIDEO)return driveFB();m.insertAdjacentHTML("beforeend",`<video src="${VIDEO}" autoplay muted loop playsinline preload="auto" onerror="driveFB()"></video>`);const v=m.querySelector("video"),pl=()=>v.play&&v.play().catch(()=>{});pl();document.addEventListener("click",pl,{once:true})}
+// admin (Firebase) se aane wala data
+window.setProducts=l=>{if(l&&l.length){P=l;sel=null;render()}};
+window.setSettings=s=>{if(s.phone)PHONE=String(s.phone).replace(/\D/g,"").replace(/^0/,"92");if(s.address)ADDRESS=s.address;if(s.fb)FB=s.fb;if(s.tt)TT=s.tt;if(s.video){VIDEO=s.video;mountVideo()}[1,2,3].forEach(n=>{if(s["offer"+n]){const a=s["offer"+n].split("|");OFFERS[n-1]=[a[0]||"🎁",a[1]||"",a[2]||""]}});["ep","jc","up"].forEach((k,i)=>{if(s[k])WAL[i][1]=s[k]});$("#wab").href=wa("Hello! I have a question.");$("#fb").href=FB;$("#tt").href=TT;render()};
+addEventListener("scroll",()=>{const e=document.querySelector(".hero");if(!e||view!="home")return;const f=Math.min(1,Math.max(0,scrollY/(e.offsetHeight*.85)));$("#media").style.opacity=1-f;e.firstElementChild.style.opacity=Math.max(0,1-f*1.3);e.firstElementChild.style.transform="translateY("+f*28+"px)"},{passive:true});
+let OFFERS=[["🚚","Free delivery","All over Pakistan on bigger orders"],["🎁","Combo savings","Buy 2 items and ask us for a special price"],["⚡","Weekly deal","Selected items at special discounted prices"]];
+function wsvg(p){const i=[...p.id].reduce((a,c)=>a+c.charCodeAt(0),0),S=["#c9748a","#e8c9a0","#7c5cbf","#ffffff","#2d2d3a","#5bb5f0"][i%6],D=["#fff6fa","#2d2d3a","#fdeef5","#f7e7c6"][i%4],T=D=="#2d2d3a"?"#f4d58d":"#8a3a62";
+ return `<svg viewBox="0 0 100 100" class="wsvg" aria-hidden="true"><rect x="38" y="0" width="24" height="34" rx="8" fill="${S}"/><rect x="38" y="66" width="24" height="34" rx="8" fill="${S}"/><circle cx="50" cy="50" r="27" fill="#e9c46a"/><circle cx="50" cy="50" r="23" fill="#fff3c9"/><circle cx="50" cy="50" r="20.5" fill="${D}"/>${[...Array(12)].map((_,k)=>`<line x1="50" y1="31.5" x2="50" y2="${k%3?33.5:35.5}" stroke="${T}" stroke-width="${k%3?.8:1.4}" transform="rotate(${k*30} 50 50)"/>`).join("")}<line x1="50" y1="50" x2="50" y2="39" stroke="${T}" stroke-width="2" stroke-linecap="round" transform="rotate(${(i*37)%360} 50 50)"/><line x1="50" y1="50" x2="50" y2="34" stroke="${T}" stroke-width="1.3" stroke-linecap="round" transform="rotate(${(i*91)%360} 50 50)"/><line x1="50" y1="54" x2="50" y2="32" stroke="#8e2a5b" stroke-width=".7"><animateTransform attributeName="transform" type="rotate" from="0 50 50" to="360 50 50" dur="60s" repeatCount="indefinite"/></line><circle cx="50" cy="50" r="1.8" fill="#8e2a5b"/><path d="M33 40A20 20 0 0 1 60 31" stroke="#fff" stroke-opacity=".75" stroke-width="2.5" fill="none" stroke-linecap="round"/><rect x="76" y="47" width="5" height="6" rx="1.5" fill="#e9c46a"/></svg>`}
+function pic(p){return p.img?`<img src="${p.img}" alt="">`:p.c=="watches"?wsvg(p):cn(p.c).e}
+function driveFB(){const m=$("#media");m.querySelectorAll("video,iframe").forEach(e=>e.remove());if(DRIVE_ID)m.insertAdjacentHTML("beforeend",`<iframe class="dv" src="https://drive.google.com/file/d/${DRIVE_ID}/preview" allow="autoplay; fullscreen" allowfullscreen title="video"></iframe>`)}
+const WAI=`<svg viewBox="0 0 32 32"><path d="M16 3C9 3 3.4 8.6 3.4 15.5c0 2.3.6 4.4 1.7 6.3L3 29l7.4-2c1.8 1 3.8 1.5 5.6 1.5 7 0 12.6-5.6 12.6-12.5S23 3 16 3zm6.300 17.600c-.3.800-1.600 1.500-2.200 1.600-.6.100-1.300.1-2-.1-.5-.2-1.100-.4-1.900-.8-3.300-1.400-5.400-4.700-5.600-4.900-.2-.2-1.300-1.700-1.300-3.200s.8-2.300 1.100-2.600c.3-.3.600-.4.800-.4h.6c.2 0 .5-.1.700.5.3.600.9 2.200 1 2.400.1.200.1.400 0 .6l-.4.600-.6.700c-.2.200-.4.400-.2.800.2.400 1 1.600 2.100 2.600 1.400 1.200 2.600 1.600 3 1.800.4.200.6.200.8-.1.200-.3 1-1.100 1.300-1.500.3-.4.500-.3.900-.2.400.2 2.300 1.100 2.700 1.300.4.200.6.300.7.500.1.200.1.900-.2 1.700z"/></svg>`;
+const IMGN={wa:"whatsapp",ep:"easypaisa",jc:"jazzcash",up:"upaisa"},LET={ep:"e",jc:"J",up:"U"};
+function ico(k){return `<span class="ic ${k}">${k=="wa"?WAI:LET[k]}<img src="img/${IMGN[k]}.png" alt="" onerror="this.remove()"></span>`}
+const HOW=[["1️⃣","Choose","Pick your favourite item and size","منتخب کریں","اپنی پسند کی چیز اور سائز چنیں"],["2️⃣","Order on WhatsApp","Tap the order button, we reply fast","واٹس ایپ پر آرڈر","آرڈر بٹن دبائیں، ہم جلد جواب دیتے ہیں"],["3️⃣","Pay & receive","EasyPaisa, JazzCash or UPaisa, delivery to your door","ادائیگی اور وصولی","ایزی پیسہ، جاز کیش یا یو پیسہ، گھر تک ڈیلیوری"]];
+let RV=[],api=null,rs=0;
+const esc=s=>String(s).replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+const stars=n=>"★".repeat(n)+"☆".repeat(5-n);
+async function loadRV(){try{RV=api?await api.load():JSON.parse(localStorage.getItem("sab_rv")||"[]")}catch(e){RV=[]}drawRV()}
+function drawRV(){const n=RV.length,avg=n?RV.reduce((a,x)=>a+x.s,0)/n:0;$("#rsum").innerHTML=n?`<span class="avg">${avg.toFixed(1)}</span> <span class="st">${stars(Math.round(avg))}</span> <small>${n}</small>`:"";$("#rlist").innerHTML=RV.slice(0,12).map(x=>`<div class="rvc glass"><div class="st">${stars(x.s)}</div><p>${esc(x.m)}</p><small>— ${esc(x.n)} · ${new Date(x.t).toLocaleDateString()}</small></div>`).join("")||`<p class="empty">${T("norv")}</p>`}
+function paintStars(){document.querySelectorAll("#stars button").forEach((b,i)=>b.classList.toggle("on",i<rs))}
+async function sendRV(){const n=$("#rn").value.trim().slice(0,40),m=$("#rm").value.trim().slice(0,300);if(!rs)return toast(T("pickst"));if(!n||!m)return toast(T("fill"));const x={n,m,s:rs,t:Date.now()};try{if(api)await api.add(x);else{RV.unshift(x);localStorage.setItem("sab_rv",JSON.stringify(RV))}}catch(e){return toast("Could not send")}$("#rn").value=$("#rm").value="";rs=0;paintStars();toast(T("thanks"));loadRV()}
+window.setReviewAPI=a=>{api=a;loadRV()};
+function closeD(){const d=$("#dlg");d.classList.add("hide");d.innerHTML=""}
+function playV(){if(!DRIVE_ID)return toast(T("novid"));$("#dlg").innerHTML=`<div class="box glass vbox"><button class="x2" onclick="closeD()" aria-label="close">×</button><iframe src="https://drive.google.com/file/d/${DRIVE_ID}/preview" allow="autoplay; fullscreen" allowfullscreen title="video"></iframe></div>`;$("#dlg").classList.remove("hide")}
+function liveMap(){const a=$("#mapA");if(!a)return;a.outerHTML=`<iframe title="map" allowfullscreen src="https://www.google.com/maps?q=34.761675090975885,72.32121804586971&z=16&output=embed"></iframe>`;const p=document.querySelector(".mapbox .pin");if(p)p.remove()}
+function list(){let l=P.filter(p=>(view=="all"||p.c==view)&&p.pr<=fil.price&&(!q||(p.en+p.ur).toLowerCase().includes(q))&&(!fil.col||p.col.includes(fil.col))&&(!fil.sz||p.sz.includes(fil.sz))&&(!fil.br.length||fil.br.includes(p.br)));const s=$("#sort").value;if(s=="lo")l.sort((a,b)=>a.pr-b.pr);else if(s=="hi")l.sort((a,b)=>b.pr-a.pr);else l.sort((a,b)=>b.rt-a.rt);return l}
+function card(p){const bd=p.bd||(p.was>p.pr?"-"+Math.round((1-p.pr/p.was)*100)+"%":""),b=bd?`<span class="tag ${bd=="New"?"n":bd=="Hot"?"h":""}">${bd}</span>`:"";return `<div class="p glass ${sel&&sel.id==p.id?"sel":""}" onclick="pick('${p.id}')"><div class="pic">${pic(p)}${b}</div><h4>${t(p)}</h4>${p.rt?`<div class="rt"><i>★</i> ${p.rt} (${p.rn||0})</div>`:""}<div class="pr">PKR ${p.pr.toLocaleString()} ${p.was?`<s>PKR ${p.was.toLocaleString()}</s>`:""}</div><a class="wab" target="_blank" rel="noopener" onclick="event.stopPropagation()" href="${wa("Hello, I want to order:\n\nProduct: "+p.en+"\nPrice: PKR "+p.pr.toLocaleString()+"\nProduct ID: "+p.id+"\n\nPlease confirm availability.")}">${ico("wa")} ${T("ord")}</a></div>`}
+function pick(id){const p0=P.find(p=>p.id==id);if(view=="home"||(view!="all"&&view!=p0.c))go(p0.c);sel=p0;sel.q=1;sel.c1=sel.col[0];sel.s1=sel.sz[0];draw();panel();if(innerWidth<760)$("#panel").classList.add("open");else if(innerWidth<1100)$("#panel").scrollIntoView({behavior:"smooth"})}
+function draw(){const l=list();$("#grid").innerHTML=l.slice(0,PAGE).map(card).join("");$("#cnt").textContent=`${T("sh")} 1–${Math.min(PAGE,l.length)} ${T("of")} ${l.length}`;$("#more").parentElement.classList.toggle("hide",PAGE>=l.length);$("#more").textContent=T("more")}
+function panel(){if(!sel&&list().length)sel=Object.assign(list()[0],{q:1,c1:list()[0].col[0],s1:list()[0].sz[0]});const p=sel;if(!p){$("#panel").innerHTML="";return}
+ const msg="Hello, I want to order:\n\nProduct: "+p.en+"\nColor: "+p.c1+"\nSize: "+p.s1+"\nQuantity: "+p.q+"\nPrice: PKR "+(p.pr*p.q).toLocaleString()+"\nProduct ID: "+p.id+"\n\nPlease confirm availability.";
+ $("#panel").innerHTML=`<button class="x" onclick="$('#panel').classList.remove('open')" aria-label="close">×</button><div class="pic">${pic(p)}</div><h3>${t(p)}</h3>${p.rt?`<div class="rt"><i>★</i> ${p.rt} (${p.rn||0})</div>`:""}<div class="pr" style="font-size:1.3rem">PKR ${p.pr.toLocaleString()} ${p.was?`<s>PKR ${p.was.toLocaleString()}</s>`:""}</div>${p.was>p.pr?`<div class="save">🏷️ Save PKR ${(p.was-p.pr).toLocaleString()}</div>`:""}
+ <p>${T("col")}: ${p.col.map(c=>`<span class="dot ${c==p.c1?"on":""}" style="background:${COLORS[c]}" title="${c}" onclick="sel.c1='${c}';panel()"></span>`).join("")}</p>
+ <p>${T("sz")}: ${p.sz.map(s=>`<span class="chip ${s==p.s1?"on":""}" onclick="sel.s1='${s}';panel()">${s}</span>`).join("")}</p>
+ <p class="qty">${T("qty")}: <button onclick="sel.q=Math.max(1,sel.q-1);panel()">−</button><b>${p.q}</b><button onclick="sel.q++;panel()">+</button></p>
+ <a class="pay wa" target="_blank" rel="noopener" href="${wa(msg)}">${ico("wa")} ${T("ord")}</a>
+ <button class="pay ep" onclick="pm(0)">${ico("ep")} ${T("pay")[0]}</button><button class="pay jc" onclick="pm(1)">${ico("jc")} ${T("pay")[1]}</button><button class="pay up" onclick="pm(2)">${ico("up")} ${T("pay")[2]}</button>
+ <div class="mini">${T("mn").map((x,i)=>`<div>${["🛡️","🧾","🎧"][i]}<br>${x}</div>`).join("")}</div>`}
+function filters(){const c=Object.keys(COLORS);$("#fl").innerHTML=`<h3>${T("fp")}</h3><input type="range" min="1000" max="15000" step="500" value="${fil.price}" oninput="fil.price=+this.value;$('#pv').textContent=this.value;draw()"><small>PKR 1,000 – <span id="pv">${fil.price}</span></small>
+ <h3>${T("fc")}</h3>${c.map(x=>`<span class="dot ${fil.col==x?"on":""}" style="background:${COLORS[x]}" title="${x}" onclick="fil.col=fil.col=='${x}'?null:'${x}';filters();draw()"></span>`).join("")}
+ <h3>${T("fs")}</h3>${["S","M","L","XL","XXL"].map(x=>`<span class="chip ${fil.sz==x?"on":""}" onclick="fil.sz=fil.sz=='${x}'?null:'${x}';filters();draw()">${x}</span>`).join("")}
+ <h3>${T("fb")}</h3>${BRANDS.map(b=>`<label><input type="checkbox" ${fil.br.includes(b[1])?"checked":""} onchange="this.checked?fil.br.push('${b[1]}'):fil.br.splice(fil.br.indexOf('${b[1]}'),1);draw()"> ${b[1]}</label>`).join("")}`}
+function render(){
+ const d=document.documentElement;d.lang=lang;d.dir=lang=="en"?"ltr":"rtl";$("#lang").textContent=lang=="en"?"اردو":"English";
+ const m={th:"th",open:"open",rsend:"send",to:"to",ts:"ts",tw:"tw",wm:"wm",tl:"tl",pc:"pc",h1:"h1",sub:"sub",cta:"cta",wt:"wt",tb:"tb",tv:"tv",dir:"dir",rt:"rt",tr:"tr",ft:"ft"};for(const k in m){const e=$("#"+k);if(e)e.textContent=T(m[k])}
+ $("#nav").innerHTML=[{id:"home",e:"🏠",en:T("home"),ur:T("home")}].concat(CATS).map(c=>`<a class="${c.id==view?"on":""}" onclick="go('${c.id}')">${c.e} ${t(c)}</a>`).join("");
+ const home=view=="home";$("#home").classList.toggle("hide",!home);$("#shopv").classList.toggle("hide",home);$("#wab").classList.toggle("hide",!home); // WhatsApp icon sirf Home par
+ $("#t5").innerHTML=CATS.map(c=>`<div class="t5 glass" onclick="go('${c.id}')"><span>${t(c)}</span><b>${c.e}</b></div>`).join("");
+ $("#brs").innerHTML=BRANDS.map(b=>`<div class="br"><div><b>${b[0]}</b>${b[1]}</div></div>`).join("");
+ $("#addr").textContent=ADDRESS;$("#dir").href=DIRLINK;$("#open").href=MAPLINK;if($("#mapA"))$("#mapA").href=MAPLINK;$("#rn").placeholder=T("nameph");$("#rm").placeholder=T("cmph");
+ $("#trust").innerHTML=[T("tr1"),T("tr2"),["SABÉRA ♡",T("ft")],[T("tr3")[0],T("tr3")[1]]].map((x,i)=>`<div>${["🚚","🛡️","",""][i]}<b>${x[0]}</b>${x[1]}</div>`).join("")+`<div><a class="soc fbc" href="${FB}" target="_blank" rel="noopener">f</a> <a class="soc ttc" href="${TT}" target="_blank" rel="noopener">♪</a></div>`;
+ if(!home){$("#bt").textContent=view=="all"?(lang=="en"?"Search & All Products":"تلاش اور تمام مصنوعات"):t(cn(view));$("#fbtn").textContent=lang=="en"?"🎚 Filter":"🎚 فلٹر";$("#q").placeholder=lang=="en"?"Search products…":"مصنوعات تلاش کریں…";$("#bs").textContent=T("sub2");filters();if(!sel)panel();draw();panel()}
+ $("#tabs").innerHTML=[["home","🏠",lang=="en"?"Home":"ہوم","go('home')"],["all","🔍",lang=="en"?"Search":"تلاش","go('all');setTimeout(()=>$('#q').focus(),80)"],["visit","📍",lang=="en"?"Visit":"دکان","visit()"]].map(x=>`<a class="${x[0]==view?"on":""}" onclick="${x[3]}"><b>${x[1]}</b>${x[2]}</a>`).join("");
+ $("#ofs").innerHTML=OFFERS.map(o=>`<div class="of glass"><b>${o[0]}</b><h3>${o[1]}</h3><p>${o[2]}</p></div>`).join("");
+ $("#sale").innerHTML=P.filter(p=>p.was>p.pr).slice(0,4).map(card).join("");$("#wgrid").innerHTML=P.filter(p=>p.c=="watches").slice(0,4).map(card).join("");
+ $("#hw").innerHTML=HOW.map(x=>`<div class="glass"><b>${x[0]}</b><h3>${lang=="en"?x[1]:x[3]}</h3><p>${lang=="en"?x[2]:x[4]}</p></div>`).join("");
+ drawRV();
+}
+$("#stars").innerHTML=[1,2,3,4,5].map(n=>`<button data-n="${n}" aria-label="${n}">★</button>`).join("");
+$("#stars").onclick=e=>{const n=+e.target.dataset.n;if(n){rs=n;paintStars()}};$("#rsend").onclick=sendRV;loadRV();
+$("#wab").href=wa("Hello! I have a question.");$("#fb").href=FB;$("#tt").href=TT;
+mountVideo();
+render();
+</script><script type="module">
+import {ready,db,collection,getDocs,doc,getDoc,query,orderBy,limit,addDoc} from "./fb.js";
+if(ready){
+ try{window.setReviewAPI({load:async()=>(await getDocs(query(collection(db,"reviews"),orderBy("t","desc"),limit(30)))).docs.map(d=>d.data()),add:x=>addDoc(collection(db,"reviews"),x)})}catch(e){console.warn(e)}
+ try{const s=await getDocs(collection(db,"products"));window.setProducts(s.docs.map(d=>Object.assign({col:["Pink"],sz:["Free"],rt:0,rn:0,was:0,bd:"",img:""},d.data())));const st=await getDoc(doc(db,"settings","main"));if(st.exists())window.setSettings(st.data())}catch(e){console.warn("Firebase:",e)}}
+</script></body></html>
