@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>SABÉRA Studio</title><meta name="robots" content="noindex">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Jost:wght@400;500;600;700&family=Cormorant+Garamond:wght@600;700&display=swap">
+<link rel="stylesheet" href="style.css">
+<style>
+:root{color-scheme:light}body{padding-bottom:96px}
+.top{margin:.6rem 0;padding:1.1rem 1.2rem;border-radius:26px;color:#fff;background:linear-gradient(120deg,#8e2a5b,#5a1238 60%,#a8416f);box-shadow:var(--sh)}
+.top .row{display:flex;align-items:center;gap:.7rem}.top img{width:50px;height:50px;border-radius:50%;background:#3a1230}
+.top h1{margin:0;font:700 1.7rem 'Cormorant Garamond',serif;color:#fff;-webkit-text-fill-color:#fff}
+.chip{margin-left:auto;font-size:.72rem;padding:.2rem .7rem;border-radius:99px;background:rgba(255,255,255,.2)}.chip.live{background:#1faa59}.chip.demo{background:#c9a24b;color:#2b1220}
+.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:.5rem;margin-top:.8rem}.stats div{background:rgba(255,255,255,.16);border-radius:14px;padding:.45rem;text-align:center;font-size:.7rem}.stats b{display:block;font-size:1.4rem}
+.note{background:#fff3cd;color:#5c4400;border-radius:14px;padding:.6rem .9rem;margin:.5rem 0;font-size:.85rem}
+.tabs{position:fixed;left:.6rem;right:.6rem;bottom:calc(.5rem + env(safe-area-inset-bottom,0px));z-index:40;display:flex;justify-content:space-around;padding:.3rem;max-width:600px;margin:auto}
+.tabs a{display:flex;flex-direction:column;align-items:center;font-size:.68rem;padding:.3rem .6rem;border-radius:99px;cursor:pointer;color:#2b1220}.tabs a b{font-size:1.2rem;font-weight:400}.tabs a.on{background:var(--grad);color:#fff}
+.pane{display:none}.pane.on{display:block;animation:up .25s ease}@keyframes up{from{opacity:0;transform:translateY(8px)}}
+.box2{padding:1.1rem;margin:.6rem 0}.box2 h2{margin:0 0 .5rem;font-size:1.5rem}
+.f{display:grid;gap:.5rem}.f label{font-weight:600;font-size:.82rem}
+.f input,.f select,.bar input,.bar select{width:100%;padding:.65rem .85rem;border-radius:14px;border:1.5px solid #e2c3ca;background:#fff;font:inherit;color:#2b1220}
+.g2{display:grid;grid-template-columns:1fr 1fr;gap:.5rem}.g3{display:grid;grid-template-columns:70px 1fr;gap:.4rem}
+.chips label{font-weight:400;display:inline-block;margin:.15rem .6rem .15rem 0}.chips input{width:auto}
+.bar{display:grid;grid-template-columns:1fr 130px;gap:.5rem;margin:.4rem 0}
+.fl{display:flex;gap:.4rem;overflow-x:auto;margin:.4rem 0 .7rem;scrollbar-width:none}.fl a{white-space:nowrap;padding:.3rem .8rem;border-radius:99px;background:#fff;cursor:pointer;font-size:.82rem}.fl a.on{background:var(--grad);color:#fff}
+.pg{display:grid;grid-template-columns:repeat(auto-fill,minmax(165px,1fr));gap:.7rem}
+.pc{padding:.5rem;text-align:center;position:relative}.pc .th{aspect-ratio:1;border-radius:16px;display:grid;place-items:center;font-size:3rem;background:linear-gradient(135deg,#fbe3e6,#e9d5b8);position:relative;overflow:hidden}.pc .th img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.pc .bd{position:absolute;left:8px;top:8px;background:#b5385f;color:#fff;border-radius:99px;font-size:.72rem;padding:.1rem .55rem;z-index:2}
+.pc h4{margin:.4rem 0 0;font-size:.9rem}.pc .pr{font-weight:700;color:#8e2a5b}.pc s{font-weight:400;color:#7a6a70;font-size:.75rem}.pc small{opacity:.7}
+.acts{display:grid;grid-template-columns:1fr 1fr 1fr;gap:.3rem;margin-top:.4rem}.acts button{border:0;border-radius:11px;padding:.45rem .2rem;font:600 .75rem Jost,sans-serif;cursor:pointer}
+.ed{background:#ece4ff;color:#4b2aa8}.cp{background:#e2f3ea;color:#0f6b36}.dl{background:#ffe1e1;color:#b42318}
+.fab{position:fixed;right:16px;bottom:96px;width:56px;height:56px;border-radius:50%;border:0;background:var(--grad);color:#fff;font-size:2rem;box-shadow:0 8px 20px rgba(110,26,69,.45);z-index:41;cursor:pointer}
+.live{max-width:210px;margin:.4rem auto}.ph{display:flex;gap:.5rem;align-items:center}.ph .btn{padding:.4rem .9rem;font-size:.8rem}
+.hint{font-size:.8rem;opacity:.75;margin:0}.disc{color:#15803d;font-weight:600;font-size:.85rem}
+#mdl{position:fixed;inset:0;z-index:90;background:rgba(60,10,40,.5);display:grid;place-items:center;padding:1rem}#mdl .bx{padding:1.4rem;max-width:340px;text-align:center;background:#fff9f3}#mdl .btn{margin:.2rem}.btn.red{background:linear-gradient(#e5484d,#b42318)}.btn.ghost{background:#fff;color:#6e1a45;border:1.5px solid #e2c3ca;box-shadow:none}
+@media(min-width:900px){.tabs{max-width:640px}}
+</style></head><body><main class="wrap">
+<div class="top"><div class="row"><img src="img/logo.png" alt="" onerror="this.remove()"><div><h1>SABÉRA Studio</h1><small id="msg">Manage your shop</small></div><span class="chip" id="chip"></span></div>
+<div class="stats"><div><b id="s1">0</b>Products</div><div><b id="s2">0</b>On sale</div><div><b id="s3">0</b>Reviews</div><div><b id="s4">–</b>Avg ★</div></div></div>
+<div id="demo" class="note hide">👀 <b>Demo mode.</b> Firebase is not connected, so everything you do here stays on this device only. Connect Firebase (see SETUP.txt) to make it live for customers.</div>
+<div id="login" class="box2 glass f hide"><h2>Owner login</h2><label>Email</label><input id="em" type="email" autocomplete="username"><label>Password</label><input id="pw" type="password" autocomplete="current-password"><button class="btn" id="lg">Login</button></div>
+
+<div id="app" class="hide">
+<section class="pane on" id="p-list"><div class="bar"><input id="q" type="search" placeholder="🔍 Search products"><select id="so"><option value="id">Newest ID</option><option value="lo">Price ↑</option><option value="hi">Price ↓</option></select></div><div class="fl" id="fl"></div><div class="pg" id="pg"></div></section>
+
+<section class="pane" id="p-add"><div class="box2 glass f"><h2 id="ft">Add product</h2><div class="live glass" id="lv"></div>
+<label>Name (English) *</label><input id="en"><label>Name (Urdu, optional)</label><input id="ur" dir="rtl">
+<div class="g2"><div><label>Category</label><select id="c"></select></div><div><label>Brand</label><input id="br"></div></div>
+<div class="g2"><div><label>Price (PKR) *</label><input id="pr" type="number" inputmode="numeric" min="0"></div><div><label>Old price (for discount)</label><input id="was" type="number" inputmode="numeric" min="0"></div></div>
+<div id="dc" class="disc"></div><label>Badge (optional: New, Hot, Limited)</label><input id="bd">
+<label>Colors</label><div class="chips" id="cols"></div><label>Sizes (e.g. S,M,L)</label><input id="sz">
+<label>📷 Photo</label><div class="ph"><input id="ph" type="file" accept="image/*"><button class="btn ghost" id="rmph" type="button">Remove</button></div><p class="hint" id="phs"></p>
+<button class="btn" id="save">Save product</button><button class="btn ghost" id="cancel">Cancel</button></div></section>
+
+<section class="pane" id="p-off"><div class="box2 glass f"><h2>🎁 Offers</h2><p class="hint">These three cards appear on the shop Home page.</p>
+<div id="ofs"></div><button class="btn" id="sof">Save offers</button></div></section>
+
+<section class="pane" id="p-rev"><div id="rl"></div></section>
+
+<section class="pane" id="p-set"><div class="box2 glass f"><h2>⚙️ Shop settings</h2>
+<label>WhatsApp number</label><input id="s_phone" inputmode="tel" placeholder="03XXXXXXXXX"><label>Address</label><input id="s_address"><label>Facebook link</label><input id="s_fb"><label>TikTok link</label><input id="s_tt">
+<div class="g2"><div><label>EasyPaisa</label><input id="s_ep"></div><div><label>JazzCash</label><input id="s_jc"></div></div><label>UPaisa</label><input id="s_up">
+<button class="btn" id="ss">Save settings</button></div>
+<div class="box2 glass f"><h2>🎬 Hero video</h2><p class="hint">Choose a video file (mp4, 6–12 seconds, under 20 MB). It plays by itself on the shop, with no buttons.</p><video id="vp" muted loop playsinline class="hide" style="width:100%;border-radius:14px"></video><input id="vf" type="file" accept="video/mp4,video/webm,video/quicktime"><p class="hint" id="vprog"></p><button class="btn" id="vup">Upload video</button><button class="btn ghost" id="vrm">Remove video</button></div>
+<div class="box2 glass f"><h2>💾 Backup</h2><p class="hint">Download all products and settings as a file, or restore from one.</p><button class="btn ghost" id="bk">Download backup</button><input id="rs" type="file" accept=".json"><a class="btn ghost" href="index.html">View shop</a><button class="btn ghost hide" id="out">Logout</button></div></section>
+</div></main>
+<button class="fab hide" id="fab" aria-label="Add product">+</button>
+<nav class="tabs glass hide" id="tabs"></nav><div id="mdl" class="hide"></div><div id="toast"></div>
+<script type="module">
+let fb;try{fb=await import("./fb.js")}catch(e){fb={ready:false}}
+const demo=!fb.ready,$=s=>document.querySelector(s);
+const CATS=[["watches","⌚","Watches"],["dresses","👗","Dresses"],["stoles","🧣","Stallers"],["shoes","👠","Shoes"],["waistcoats","🧥","Waistcoats"]],COLS=["Pink","White","Purple","Blue","Gold"];
+const SEED=[{id:"W001",c:"watches",en:"Rose-gold Watch",ur:"روز گولڈ گھڑی",pr:7900,was:9500,br:"LUXE",bd:"",col:["Gold"],sz:["M"],img:""},{id:"D001",c:"dresses",en:"Baby-pink Frock",ur:"بے بی پنک فراک",pr:5200,was:0,br:"SABÉRA",bd:"New",col:["Pink"],sz:["S","M"],img:""}];
+let items=[],revs=[],editing=null,img="",flt="all";
+const esc=s=>String(s??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+const toast=m=>{const e=$("#toast");e.textContent=m;e.classList.add("on");setTimeout(()=>e.classList.remove("on"),2600)};
+const ls=(k,d)=>{try{return JSON.parse(localStorage.getItem(k))??d}catch(e){return d}},lw=(k,v)=>{try{localStorage.setItem(k,JSON.stringify(v))}catch(e){toast("Device storage is full")}};
+const err=e=>/permission/i.test(e.code+e.message)?"Permission denied: check that your email is in the Firestore rules":(e.code||e.message||"Error");
+const ask=(t,ok,fn)=>{$("#mdl").innerHTML=`<div class="bx glass"><h3>${t}</h3><button class="btn red" id="y">${ok}</button><button class="btn ghost" id="n">Cancel</button></div>`;$("#mdl").classList.remove("hide");$("#n").onclick=()=>$("#mdl").classList.add("hide");$("#y").onclick=async()=>{$("#mdl").classList.add("hide");await fn()}};
+// ---- data layer: Firebase ya demo (localStorage) ----
+const store={
+ async list(){return demo?ls("sab_p",SEED):(await fb.getDocs(fb.collection(fb.db,"products"))).docs.map(d=>d.data())},
+ async put(p){if(demo){const l=await this.list(),i=l.findIndex(x=>x.id==p.id);i<0?l.push(p):l[i]=p;lw("sab_p",l)}else await fb.setDoc(fb.doc(fb.db,"products",p.id),p)},
+ async del(id){if(demo)lw("sab_p",(await this.list()).filter(x=>x.id!=id));else await fb.deleteDoc(fb.doc(fb.db,"products",id))},
+ async gets(){return demo?ls("sab_s",{}):((await fb.getDoc(fb.doc(fb.db,"settings","main"))).data()||{})},
+ async puts(o){if(demo)lw("sab_s",Object.assign(await this.gets(),o));else await fb.setDoc(fb.doc(fb.db,"settings","main"),o,{merge:true})},
+ async revs(){return demo?ls("sab_rv",[]).map(x=>({...x,_id:String(x.t)})):(await fb.getDocs(fb.collection(fb.db,"reviews"))).docs.map(d=>({...d.data(),_id:d.id}))},
+ async delrev(id){if(demo)lw("sab_rv",ls("sab_rv",[]).filter(x=>String(x.t)!=id));else await fb.deleteDoc(fb.doc(fb.db,"reviews",id))}};
+// ---- tabs ----
+const TABS=[["list","📦","Products"],["add","➕","Add"],["off","🎁","Offers"],["rev","💬","Reviews"],["set","⚙️","Settings"]];
+$("#tabs").innerHTML=TABS.map(t=>`<a data-t="${t[0]}"><b>${t[1]}</b>${t[2]}</a>`).join("");
+function tab(t){document.querySelectorAll(".pane").forEach(p=>p.classList.toggle("on",p.id=="p-"+t));document.querySelectorAll("#tabs a").forEach(a=>a.classList.toggle("on",a.dataset.t==t));$("#fab").classList.toggle("hide",t!="list");scrollTo({top:0,behavior:"smooth"});if(t=="add")live()}
+$("#tabs").onclick=e=>{const a=e.target.closest("a");if(a){if(a.dataset.t=="add"&&!editing)reset();tab(a.dataset.t)}};
+$("#fab").onclick=()=>{reset();tab("add")};
+$("#chip").textContent=demo?"Demo mode":"Live";$("#chip").classList.add(demo?"demo":"live");
+function enter(){$("#login").classList.add("hide");$("#app").classList.remove("hide");$("#tabs").classList.remove("hide");tab("list");load()}
+if(demo){$("#demo").classList.remove("hide");enter()}else{
+ $("#lg").onclick=()=>fb.signInWithEmailAndPassword(fb.auth,$("#em").value.trim(),$("#pw").value).catch(e=>toast("Login failed: "+(e.code||"check email and password")));
+ $("#pw").onkeydown=e=>{if(e.key=="Enter")$("#lg").click()};
+ $("#out").classList.remove("hide");$("#out").onclick=()=>fb.signOut(fb.auth);
+ fb.onAuthStateChanged(fb.auth,u=>{if(u){$("#msg").textContent="Hello, "+u.email;enter()}else{$("#login").classList.remove("hide");$("#app").classList.add("hide");$("#tabs").classList.add("hide");$("#fab").classList.add("hide")}})}
+// ---- products ----
+const disc=p=>p.was>p.pr?Math.round((1-p.pr/p.was)*100):0,cat=id=>CATS.find(c=>c[0]==id)||[0,"🛍️",id];
+const card=(p,a)=>`<div class="pc glass">${(p.bd||disc(p))?`<span class="bd">${esc(p.bd||"-"+disc(p)+"%")}</span>`:""}<div class="th">${p.img?`<img src="${p.img}" alt="">`:cat(p.c)[1]}</div><h4>${esc(p.en)}</h4><div class="pr">PKR ${(+p.pr||0).toLocaleString()} ${p.was>p.pr?`<s>PKR ${(+p.was).toLocaleString()}</s>`:""}</div><small>${esc(p.id)} · ${esc(cat(p.c)[2])}</small>${a?`<div class="acts"><button class="ed" data-e="${esc(p.id)}">✏️ Edit</button><button class="cp" data-c="${esc(p.id)}">⧉ Copy</button><button class="dl" data-d="${esc(p.id)}">🗑 Delete</button></div>`:""}</div>`;
+async function load(){
+ try{items=await store.list()}catch(e){return toast(err(e))}
+ try{revs=await store.revs()}catch(e){revs=[]}
+ $("#s1").textContent=items.length;$("#s2").textContent=items.filter(disc).length;$("#s3").textContent=revs.length;$("#s4").textContent=revs.length?(revs.reduce((a,r)=>a+r.s,0)/revs.length).toFixed(1):"–";
+ drawList();drawRev();
+ try{const s=await store.gets();for(const k in s)if($("#s_"+k))$("#s_"+k).value=s[k];vshow(s.video);[1,2,3].forEach(n=>{const a=(s["offer"+n]||"").split("|").map(x=>x.trim());$("#o"+n+"e").value=a[0]||"";$("#o"+n+"t").value=a[1]||"";$("#o"+n+"x").value=a[2]||""})}catch(e){}}
+function drawList(){const q=$("#q").value.toLowerCase(),s=$("#so").value;
+ $("#fl").innerHTML=[["all","✨","All"],...CATS.map(c=>[c[0],c[1],c[2]])].map(c=>`<a class="${flt==c[0]?"on":""}" data-f="${c[0]}">${c[1]} ${c[2]}</a>`).join("");
+ let l=items.filter(p=>(flt=="all"||p.c==flt)&&(!q||(p.en+" "+p.id+" "+(p.br||"")).toLowerCase().includes(q)));
+ l.sort((a,b)=>s=="lo"?a.pr-b.pr:s=="hi"?b.pr-a.pr:(a.id<b.id?1:-1));
+ $("#pg").innerHTML=l.map(p=>card(p,1)).join("")||"<p>No products here yet. Tap + to add one.</p>"}
+$("#q").oninput=drawList;$("#so").onchange=drawList;
+$("#fl").onclick=e=>{const a=e.target.closest("a");if(a){flt=a.dataset.f;drawList()}};
+$("#pg").onclick=e=>{const b=e.target.closest("button");if(!b)return;const {d,e:ed,c}=b.dataset;
+ if(d){const p=items.find(x=>x.id==d);ask(`Delete “${esc(p.en)}”?<p style="font-size:.85rem">It will be removed from your shop. This can’t be undone.</p>`,"Yes, delete",async()=>{try{await store.del(d);toast("Deleted");load()}catch(x){toast(err(x))}})}
+ if(ed||c){const p=items.find(x=>x.id==(ed||c));fill(p,!!ed);tab("add")}};
+// ---- form ----
+$("#c").innerHTML=CATS.map(c=>`<option value="${c[0]}">${c[1]} ${c[2]}</option>`).join("");
+$("#cols").innerHTML=COLS.map(c=>`<label><input type="checkbox" value="${c}"> ${c}</label>`).join("");
+function cur(){return{id:editing||"NEW",c:$("#c").value,en:$("#en").value.trim()||"Product name",ur:$("#ur").value.trim(),pr:+$("#pr").value||0,was:+$("#was").value||0,br:$("#br").value.trim(),bd:$("#bd").value.trim(),col:[...document.querySelectorAll("#cols input:checked")].map(i=>i.value),sz:$("#sz").value.split(",").map(s=>s.trim()).filter(Boolean),img}}
+function live(){const p=cur();$("#lv").innerHTML=card(p,0);$("#dc").textContent=disc(p)?`🏷️ ${disc(p)}% off · customers save PKR ${(p.was-p.pr).toLocaleString()}`:"";$("#phs").textContent=img?`Photo ready (${Math.round(img.length*.75/1024)} KB)`:"No photo yet"}
+function fill(p,edit){editing=edit?p.id:null;img=p.img||"";["en","ur","c","pr","was","br","bd"].forEach(k=>$("#"+k).value=p[k]||"");$("#en").value=edit?p.en:p.en+" (copy)";$("#sz").value=(p.sz||[]).join(",");document.querySelectorAll("#cols input").forEach(i=>i.checked=(p.col||[]).includes(i.value));$("#ft").textContent=edit?"Edit product":"Copy product";live()}
+function reset(){editing=null;img="";document.querySelectorAll("#p-add input:not([type=checkbox]):not([type=file]),#p-add select").forEach(i=>i.value=i.tagName=="SELECT"?CATS[0][0]:"");$("#ph").value="";document.querySelectorAll("#cols input").forEach(i=>i.checked=false);$("#ft").textContent="Add product";live()}
+document.querySelectorAll("#p-add input,#p-add select").forEach(i=>i.addEventListener("input",live));
+$("#ph").onchange=e=>{const f=e.target.files[0];if(!f)return;const im=new Image();im.onload=()=>{const k=Math.min(1,800/Math.max(im.width,im.height)),c=document.createElement("canvas");c.width=Math.round(im.width*k);c.height=Math.round(im.height*k);c.getContext("2d").drawImage(im,0,0,c.width,c.height);img=c.toDataURL("image/jpeg",.75);live()};im.onerror=()=>toast("Could not read this photo");im.src=URL.createObjectURL(f)};
+$("#rmph").onclick=()=>{img="";$("#ph").value="";live()};
+$("#cancel").onclick=()=>{reset();tab("list")};
+$("#save").onclick=async()=>{const d=cur();if(!$("#en").value.trim()||!$("#pr").value)return toast("Please enter a name and a price");
+ if(!editing){const pre=d.c[0].toUpperCase(),n=Math.max(0,...items.filter(x=>x.id[0]==pre).map(x=>+x.id.slice(1)||0))+1;d.id=pre+String(n).padStart(3,"0")}
+ d.ur=d.ur||d.en;if(!d.col.length)d.col=["Pink"];if(!d.sz.length)d.sz=["Free"];
+ $("#save").disabled=true;try{await store.put(d);toast("Saved ✓ "+d.id);reset();tab("list");await load()}catch(e){toast("Could not save: "+err(e))}$("#save").disabled=false};
+// ---- offers / settings ----
+$("#ofs").innerHTML=[1,2,3].map(n=>`<div class="g3" style="margin-bottom:.5rem"><input id="o${n}e" placeholder="🎁" maxlength="4"><div class="f"><input id="o${n}t" placeholder="Title (e.g. Free delivery)"><input id="o${n}x" placeholder="Text (e.g. All over Pakistan)"></div></div>`).join("");
+$("#sof").onclick=async()=>{const o={};[1,2,3].forEach(n=>{const t=$("#o"+n+"t").value.trim();if(t)o["offer"+n]=[$("#o"+n+"e").value.trim()||"🎁",t,$("#o"+n+"x").value.trim()].join("|")});try{await store.puts(o);toast("Offers saved ✓")}catch(e){toast(err(e))}};
+$("#ss").onclick=async()=>{const o={};["phone","address","fb","tt","ep","jc","up"].forEach(k=>{const v=$("#s_"+k).value.trim();if(v)o[k]=v});try{await store.puts(o);toast("Settings saved ✓")}catch(e){toast(err(e))}};
+// ---- reviews ----
+function drawRev(){const l=[...revs].sort((a,b)=>b.t-a.t);$("#rl").innerHTML=l.map(x=>`<div class="box2 glass" style="margin:.5rem 0"><div style="color:#d49a1f">${"★".repeat(x.s)}${"☆".repeat(5-x.s)}</div><p style="margin:.2rem 0">${esc(x.m)}</p><small>— ${esc(x.n)} · ${new Date(x.t).toLocaleDateString()}</small><div class="acts" style="grid-template-columns:1fr"><button class="dl" data-r="${esc(x._id)}">🗑 Delete review</button></div></div>`).join("")||"<p>No reviews yet.</p>"}
+$("#rl").onclick=e=>{const id=e.target.dataset.r;if(id)ask("Delete this review?","Yes, delete",async()=>{try{await store.delrev(id);toast("Deleted");load()}catch(x){toast(err(x))}})};
+// ---- backup ----
+$("#bk").onclick=async()=>{const data=JSON.stringify({products:await store.list(),settings:await store.gets()});const a=document.createElement("a");a.href=URL.createObjectURL(new Blob([data],{type:"application/json"}));a.download="sabera-backup-"+new Date().toISOString().slice(0,10)+".json";a.click()};
+$("#rs").onchange=e=>{const f=e.target.files[0];if(!f)return;const r=new FileReader();r.onload=()=>{let d;try{d=JSON.parse(r.result)}catch(x){return toast("This file is not a valid backup")}ask(`Restore ${(d.products||[]).length} products from this backup?`,"Restore",async()=>{try{for(const p of d.products||[])await store.put(p);if(d.settings)await store.puts(d.settings);toast("Restored ✓");load()}catch(x){toast(err(x))}})};r.readAsText(f)};
+function vshow(u){const v=$("#vp");if(u){v.src=u;v.classList.remove("hide");v.play().catch(()=>{})}else{v.removeAttribute("src");v.classList.add("hide")}}
+$("#vup").onclick=()=>{const f=$("#vf").files[0],c=fb.CLOUD||{};if(demo)return toast("Video upload works after Firebase and Cloudinary are set up");if(!c.name||!c.preset)return toast("Add your Cloudinary name and preset in fb.js (see SETUP.txt)");if(!f)return toast("Choose a video file first");if(f.size>50*1024*1024)return toast("Video is too big: keep it under 50 MB");
+ const fd=new FormData();fd.append("file",f);fd.append("upload_preset",c.preset);const x=new XMLHttpRequest();x.open("POST","https://api.cloudinary.com/v1_1/"+c.name+"/video/upload");
+ x.upload.onprogress=e=>{if(e.lengthComputable)$("#vprog").textContent="Uploading… "+Math.round(e.loaded/e.total*100)+"%"};
+ x.onload=async()=>{try{const r=JSON.parse(x.responseText);if(!r.secure_url)throw new Error((r.error&&r.error.message)||"Upload failed");await store.puts({video:r.secure_url});$("#vprog").textContent="Uploaded ✓";vshow(r.secure_url);toast("Video saved ✓")}catch(e){$("#vprog").textContent="";toast(e.message)}};
+ x.onerror=()=>toast("Upload failed: check your internet");x.send(fd)};
+$("#vrm").onclick=()=>ask("Remove the hero video?","Yes, remove",async()=>{try{await store.puts({video:""});vshow("");toast("Removed")}catch(e){toast(err(e))}});
+reset();
+</script></body></html>
